@@ -23,13 +23,12 @@ import (
 
 func main() {
 
-	slcB, _ := json.Marshal(cmd.Replace)
+	slcB, _ := json.Marshal(cmd.System)
 	fmt.Println(string(slcB))
 
-	jsonStr := `[{"Filename":"xenos-jdbc.properties","Changes":[{"Source":"jdbc.components.url.GLOBAL","Target":"jdbc:oracle:thin:@localhost:1521:XE"},{"Source":"jdbc.components.userName.GLOBAL","Target":"gvth_dev_global"},{"Source":"jdbc.components.password.GLOBAL","Target":"gvth_dev_global"}]},{"Filename":"GMO-jdbc.properties","Changes":[{"Source":"jdbc.components.url.GLOBAL","Target":"jdbc:oracle:thin:@localhost:1521:XE"},{"Source":"jdbc.components.userName.GLOBAL","Target":"gvth_dev_gmo_txn"},{"Source":"jdbc.components.password.GLOBAL","Target":"gvth_dev_gmo_txn"}]},{"Filename":"NRI-jdbc.properties","Changes":[{"Source":"jdbc.components.url.GLOBAL","Target":"jdbc:oracle:thin:@localhost:1521:XE"},{"Source":"jdbc.components.userName.GLOBAL","Target":"gvth_dev_nri_txn"},{"Source":"jdbc.components.password.GLOBAL","Target":"gvth_dev_nri_txn"}]}]`
-	var xx []cmd.FileDetails
-	json.Unmarshal([]byte(jsonStr), &xx)
-	fmt.Println(xx)
+	// var xx []cmd.FileDetails
+	// json.Unmarshal([]byte(jsonStr), &xx)
+	// fmt.Println(xx)
 
 	//cmd.Execute()
 }

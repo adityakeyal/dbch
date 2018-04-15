@@ -24,7 +24,7 @@ type exec struct {
 
 func (exec *exec) visit(path string, info os.FileInfo, err error) error {
 	if !info.IsDir() {
-		for _, fileDetails := range DevEnvironment.ReplaceInfo {
+		for _, fileDetails := range System.Environments[0].ReplaceInfo {
 			if fileDetails.Filename == info.Name() {
 				data, _ := ioutil.ReadFile(path)
 				for _, change := range fileDetails.Changes {
