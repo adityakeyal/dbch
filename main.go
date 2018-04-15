@@ -15,20 +15,10 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-
 	"github.com/adityakeyal/dbch/cmd"
 )
 
 func main() {
 
-	slcB, _ := json.Marshal(cmd.System)
-	fmt.Println(string(slcB))
-
-	// var xx []cmd.FileDetails
-	// json.Unmarshal([]byte(jsonStr), &xx)
-	// fmt.Println(xx)
-
-	//cmd.Execute()
+	cmd.Execute()
 }
