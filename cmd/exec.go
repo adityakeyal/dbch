@@ -24,11 +24,11 @@ type exec struct {
 
 func (exec *exec) visit(path string, info os.FileInfo, err error) error {
 	if !info.IsDir() {
-		for _, fileDetails := range Replace {
-			if fileDetails.filename == info.Name() {
+		for _, fileDetails := range DevEnvironment.ReplaceInfo {
+			if fileDetails.Filename == info.Name() {
 				data, _ := ioutil.ReadFile(path)
-				for _, change := range fileDetails.changes {
-					data = propReplacer(data, change.source, change.target)
+				for _, change := range fileDetails.Changes {
+					data = propReplacer(data, change.Source, change.Target)
 				}
 				ioutil.WriteFile(path, data, info.Mode())
 			}
