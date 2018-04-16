@@ -1,12 +1,11 @@
 package cmd
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 
-	"github.com/adityakeyal/dbch/command"
+	"github.com/adityakeyal/gocli/command"
 )
 
 var e = exec{}
@@ -38,7 +37,6 @@ func (exec *exec) visit(path string, info os.FileInfo, err error) error {
 }
 
 func (exec *exec) execute(args []string) {
-	fmt.Println("cwd")
 	// cwd, _ := os.Getwd()
 	cwd := "D:/code/igv/nrithai/BR-GV-FOR-FIFO-FROM-THAGMO-PROD-REL-14-06032018/console/igv-console/CONSOLE-INF"
 
@@ -46,22 +44,6 @@ func (exec *exec) execute(args []string) {
 
 }
 
-// type execFlag struct {
-// 	all  *bool
-// 	name *string
-// }
-
-// func (exec *exec) parseArguments(args []string) execFlag {
-// 	var flags execFlag
-
-// 	execCommand := flag.NewFlagSet("exec", flag.ExitOnError)
-// 	flags.name = execCommand.String("name", "", "Name of the command")
-// 	flags.all = execCommand.Bool("all", false, "exec All")
-// 	execCommand.Parse(args[1:])
-
-// 	return flags
-// }
-
 func init() {
-	rootCmd.AddCommand(execCmd)
+	command.RootCmd.AddDefaultCommand(execCmd)
 }
