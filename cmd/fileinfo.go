@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"path"
 
@@ -13,7 +12,7 @@ import (
 func LoadConfiguration() *SystemInfo {
 
 	home, _ := homedir.Dir()
-	fmt.Println(home)
+
 	basePath := path.Join(home, ".dbch", "env.json")
 
 	data, err := ioutil.ReadFile(basePath)

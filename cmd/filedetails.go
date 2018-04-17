@@ -16,6 +16,7 @@ type EnvironmentInfo struct {
 type FileChanges struct {
 	Filename string           `json:"fileName"`
 	Changes  []*ChangeDetails `json:"changes"`
+	FileType string           `json:"fileType"`
 }
 
 //ChangeDetails - Struct for changes info
@@ -24,33 +25,13 @@ type ChangeDetails struct {
 	Target string `json:"target"`
 }
 
-//System -
-var System SystemInfo
+//GetDefaultEnvironment - Function to get the first available Environment
+func (system *SystemInfo) GetDefaultEnvironment() *EnvironmentInfo {
+	for _, env := range system.Environments {
+		if env.Default {
+			return env
+		}
 
-func init() {
-
-	DevEnvironment := &EnvironmentInfo{}
-	System.Environments = make([]*EnvironmentInfo, 0, 1)
-	System.Environments = append(System.Environments, DevEnvironment)
-	DevEnvironment.EnvironmentName = "Dev"
-
-	DevEnvironment.Default = false
-	DevEnvironment.ReplaceInfo = append(DevEnvironment.ReplaceInfo, &FileChanges{"xenos-jdbc.properties", []*ChangeDetails{
-		&ChangeDetails{"jdbc.components.url.GLOBAL", "jdbc:oracle:thin:@localhost:1521:XE"},
-		&ChangeDetails{"jdbc.components.userName.GLOBAL", "gvth_dev_global"},
-		&ChangeDetails{"jdbc.components.password.GLOBAL", "gvth_dev_global"},
-	}})
-
-	DevEnvironment.ReplaceInfo = append(DevEnvironment.ReplaceInfo, &FileChanges{"GMO-jdbc.properties", []*ChangeDetails{
-		&ChangeDetails{"jdbc.components.url.GLOBAL", "jdbc:oracle:thin:@localhost:1521:XE"},
-		&ChangeDetails{"jdbc.components.userName.GLOBAL", "gvth_dev_gmo_txn"},
-		&ChangeDetails{"jdbc.components.password.GLOBAL", "gvth_dev_gmo_txn"},
-	}})
-
-	DevEnvironment.ReplaceInfo = append(DevEnvironment.ReplaceInfo, &FileChanges{"NRI-jdbc.properties", []*ChangeDetails{
-		&ChangeDetails{"jdbc.components.url.GLOBAL", "jdbc:oracle:thin:@localhost:1521:XE"},
-		&ChangeDetails{"jdbc.components.userName.GLOBAL", "gvth_dev_nri_txn"},
-		&ChangeDetails{"jdbc.components.password.GLOBAL", "gvth_dev_nri_txn"},
-	}})
-
+	}
+	return system.Environments[0]
 }

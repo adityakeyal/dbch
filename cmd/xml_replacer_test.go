@@ -2,7 +2,10 @@ package cmd
 
 import (
 	"fmt"
+	"strings"
 	"testing"
+
+	"github.com/beevik/etree"
 )
 
 func TestXMLReplacer(t *testing.T) {
@@ -95,10 +98,36 @@ func TestXMLReplacer(t *testing.T) {
 		</beans>
 		`
 
-	source := "//beans/bean/property[name=brokerURL]/value"
-	targetValue := "newLocation"
-	result := xmlReplacer([]byte(x), source, targetValue)
+	//source := "//beans/bean/property/value"
+	// targetValue := "tcp://adityak:61616?daemon=true&amp;jms.redeliveryPolicy.maximumRedeliveries=-1"
 
-	fmt.Println(string(result))
+	//identifyTag(doc.Root(), source, "Aditya")
 
+}
+
+func identifyTag(element *etree.Element, xpath string, value string) {
+
+	tagName := updateAndReturnXpath(&xpath)
+	if element.Tag == tagName {
+		if len(element.ChildElements()) == 0 {
+			fmt.Println(*element)
+		} else {
+			for _, val := range element.ChildElements() {
+				identifyTag(val, xpath, value)
+			}
+		}
+	}
+}
+
+func updateAndReturnXpath(xpath *string) string {
+
+	tags := strings.Split(*xpath, "/")
+
+	for i := 0; i < len(tags); i++ {
+		if tags[i] != "" {
+			*xpath = strings.Join(tags[(i+1):], "/")
+			return tags[i]
+		}
+	}
+	return ""
 }

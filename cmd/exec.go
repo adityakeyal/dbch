@@ -23,11 +23,20 @@ type exec struct {
 
 func (exec *exec) visit(path string, info os.FileInfo, err error) error {
 	if !info.IsDir() {
-		for _, fileDetails := range System.Environments[0].ReplaceInfo {
+		systemInfo := LoadConfiguration()
+		for _, fileDetails := range systemInfo.GetDefaultEnvironment().ReplaceInfo {
 			if fileDetails.Filename == info.Name() {
 				data, _ := ioutil.ReadFile(path)
 				for _, change := range fileDetails.Changes {
-					data = propReplacer(data, change.Source, change.Target)
+
+					switch fileDetails.FileType {
+					case "prop":
+						data = propReplacer(data, change.Source, change.Target)
+					case "xml":
+						data = xmlReplacer(data, change.Source, change.Target)
+					default:
+					}
+
 				}
 				ioutil.WriteFile(path, data, info.Mode())
 			}
