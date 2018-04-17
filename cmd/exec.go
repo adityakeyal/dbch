@@ -46,8 +46,7 @@ func (exec *exec) visit(path string, info os.FileInfo, err error) error {
 }
 
 func (exec *exec) execute(args []string) {
-	// cwd, _ := os.Getwd()
-	cwd := "D:/code/igv/nrithai/BR-GV-FOR-FIFO-FROM-THAGMO-PROD-REL-14-06032018/console/igv-console/CONSOLE-INF"
+	cwd, _ := os.Getwd()
 
 	filepath.Walk(cwd, exec.visit)
 
