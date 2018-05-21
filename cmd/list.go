@@ -21,10 +21,10 @@ var newlist = &command.Command{
 	Short:   "List all environments or environment by name",
 	Long:    `Command provides an option to list all the environment and the change options for the environment`,
 	Execute: l.execute,
-	SubHelp: func() string {
+	// SubHelp: func() string {
 
-		return `Takes no arg`
-	},
+	// 	return ` -name allows to ide`
+	// },
 }
 
 type list struct {
