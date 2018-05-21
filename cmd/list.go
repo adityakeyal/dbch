@@ -1,4 +1,4 @@
-//  list command is used to list the available environment and file changes for the encvironment
+//  list command is used to list the available environment and file changes for the environment
 // The options when runnig the command is as below:
 // "-name=<Environment Name>" (optional)
 // If no name is provided then all the environment are shown

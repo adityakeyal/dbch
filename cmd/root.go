@@ -1,5 +1,6 @@
-////////////////
-// Entry point of the application
+//Package cmd -
+// Entry point in the cmd package. This is invoked by the main() of the
+// main.go application.
 ////////////////
 package cmd
 
@@ -8,7 +9,8 @@ import (
 )
 
 //Execute - Start the execution of Command
-//This just delgates the call to the main command
+//This loads the gocli command chain. All the registered commands are
+//now made available by the gocli toolkit
 func Execute() {
 	command.Execute()
 }

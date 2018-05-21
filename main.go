@@ -18,6 +18,11 @@ import (
 	"github.com/adityakeyal/dbch/cmd"
 )
 
+//Entry point of the application.
+//This delegates the call to the Execute() method of the root.go.
+//This is by convention of go-cli
+//Once all packages in the cmd folder are loaded, then the "Command" is setup and all
+//registered commands are setup
 func main() {
 	cmd.Execute()
 
