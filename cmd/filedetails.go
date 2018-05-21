@@ -36,6 +36,7 @@ func (system *SystemInfo) GetDefaultEnvironment() *EnvironmentInfo {
 	return system.Environments[0]
 }
 
+//GetEnvironment - fetches the environment information provided an environment string
 func (system *SystemInfo) GetEnvironment(environment string) *EnvironmentInfo {
 	if environment == "" {
 		return system.GetDefaultEnvironment()

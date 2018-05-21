@@ -14,11 +14,22 @@ import (
 var e = exec{}
 
 var execCmd = &command.Command{
-	Name:    "exec",
-	Use:     "",
-	Short:   "",
-	Long:    ``,
+	Name:  "exec",
+	Use:   "",
+	Short: "Replace file content defined for environment",
+	Long: `This command will replace all environment properties identified by 
+	  - provided the environment
+	  - default environment
+	`,
 	Execute: e.execute,
+	SubHelp: func() string {
+
+		return `
+			If an environment is provided then the values are replaced for that environment else the default will be run.
+			To know details of the environment check the list command.
+
+		`
+	},
 }
 
 type exec struct {
@@ -56,6 +67,7 @@ func (exec *exec) visit(path string, info os.FileInfo, err error) error {
 //This is used to do a lot of stuff like :
 //  Loop over all folders and determine where the files are present
 func (exec *exec) execute(args []string) {
+
 	cwd, _ := os.Getwd()
 
 	filepath.Walk(cwd, exec.visit)
