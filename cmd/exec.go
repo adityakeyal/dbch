@@ -25,9 +25,8 @@ var execCmd = &command.Command{
 	SubHelp: func() string {
 
 		return `
-			If an environment is provided then the values are replaced for that environment else the default will be run.
-			To know details of the environment check the list command.
-
+	If an environment is provided then the values are replaced for that environment else the default will be run.
+	To know details of the environment check the list command.
 		`
 	},
 }
