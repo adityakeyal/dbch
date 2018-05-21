@@ -35,3 +35,16 @@ func (system *SystemInfo) GetDefaultEnvironment() *EnvironmentInfo {
 	}
 	return system.Environments[0]
 }
+
+func (system *SystemInfo) GetEnvironment(environment string) *EnvironmentInfo {
+	if environment == "" {
+		return system.GetDefaultEnvironment()
+	}
+	for _, env := range system.Environments {
+		if env.EnvironmentName == environment {
+			return env
+		}
+
+	}
+	return system.GetDefaultEnvironment()
+}

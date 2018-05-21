@@ -1,3 +1,6 @@
+//Exec - This is the default command. This is used to run
+//the command which changes the property and xml files based on an environment
+
 package cmd
 
 import (
@@ -12,9 +15,9 @@ var e = exec{}
 
 var execCmd = &command.Command{
 	Name:    "exec",
-	Use:     "Test Command",
-	Short:   "Short Desc",
-	Long:    `Long Desc`,
+	Use:     "",
+	Short:   "",
+	Long:    ``,
 	Execute: e.execute,
 }
 
@@ -24,7 +27,11 @@ type exec struct {
 func (exec *exec) visit(path string, info os.FileInfo, err error) error {
 	if !info.IsDir() {
 		systemInfo := LoadConfiguration()
-		for _, fileDetails := range systemInfo.GetDefaultEnvironment().ReplaceInfo {
+		environment := ""
+		if len(os.Args) > 2 {
+			environment = os.Args[2]
+		}
+		for _, fileDetails := range systemInfo.GetEnvironment(environment).ReplaceInfo {
 			if fileDetails.Filename == info.Name() {
 				data, _ := ioutil.ReadFile(path)
 				for _, change := range fileDetails.Changes {
@@ -45,6 +52,9 @@ func (exec *exec) visit(path string, info os.FileInfo, err error) error {
 	return nil
 }
 
+//The code where the actual logic lies.
+//This is used to do a lot of stuff like :
+//  Loop over all folders and determine where the files are present
 func (exec *exec) execute(args []string) {
 	cwd, _ := os.Getwd()
 

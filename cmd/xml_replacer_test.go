@@ -101,6 +101,22 @@ func TestXMLReplacer(t *testing.T) {
 	//source := "//beans/bean/property/value"
 	// targetValue := "tcp://adityak:61616?daemon=true&amp;jms.redeliveryPolicy.maximumRedeliveries=-1"
 
+	doc := etree.NewDocument()
+	err := doc.ReadFromString(x)
+	if err != nil {
+		panic(err)
+	}
+
+	//beans/bean[id=mqQueueConnectionFactory]/property[name=brokerURL]/value
+
+	for _, t := range doc.FindElements("//bean[@id='mqQueueConnectionFactory']/property[@name='brokerURL']/value") {
+		t.SetText("Aditya")
+	}
+
+	str, _ := doc.WriteToString()
+
+	fmt.Println(str)
+
 	//identifyTag(doc.Root(), source, "Aditya")
 
 }
